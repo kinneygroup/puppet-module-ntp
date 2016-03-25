@@ -289,6 +289,7 @@ class ntp (
     mode    => $config_file_mode,
     content => template('ntp/ntp.conf.erb'),
     require => Package[$package_name_real],
+    notify  => Service['ntp_service'],
   }
 
   if $step_tickers_ensure_real == 'present' {
@@ -317,6 +318,7 @@ class ntp (
       require => [ Package[$package_name_real],
                   File['step_tickers_dir'],
                   ],
+      notify  => Service['ntp_service'],
     }
   }
 
